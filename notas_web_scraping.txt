@@ -1,0 +1,210 @@
+RESUMEN: Fundamentos de la WEB
+
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+
+HTTP: Hypertext Transfer Protocol
+
+Conjunto de reglas por el cual dos computadores se comunican. Un cliente y un servidor. El cliente realiza peticiones a servidores.
+
+Una petición se ve así:
+
+# Request
+GET / HTTP/1.1
+Host: developer.mozilla.org  Accept-Language: fr
+
+# Response  HTTP/1.1 200 OK
+Date: Sat, 09 Oct 2010 14:28:02 GMT
+Server: Apache
+Last-Modified: Tue, 01 Dec 2009 20:18:22 GMT  ETag: "51142bc1-7449-479b075b2891b"
+Accept-Ranges: bytes  Content-Length: 29769  Content-Type: text/html
+<!DOCTYPE html... (here comes the 29769 bytes of the  requested web page)
+
+
+HEADERS
+Permiten al cliente y el servidor passar información adicional con un request o response HTTP.
+Pueden agruparse en las siguientes categorías:
+
+Generales : Aplica para request y responses pero no tiene relación con la data transmitida en el cuerpo
+Request : Contienen más información acerca del recurso a ser fetch (extraer)
+Response : Contiene información adicional sobre respuestas. Como ubicación o el Server provider.
+Entity : Contien información acerca del recurso del cuerpo.
+Existen muchas cabeceras o headers como:
+
+Accept
+Authorization
+Link
+Location
+Save-Data
+Puedes consultar aquí toda la documentación sobre las cabeceras o Headers
+
+HTTP nos permite transportar, HTML, CSS, webAPIs, Js.
+Y se vale de protcolos como IP, TCP, UDP para comunicarse con el servidor, mediante TLS se hace la encriptación
+Y el DNS asigna nombres a direcciones IP.
+
+STATUS CODE :
+
+Los estados son la forma en que el servidor da respuesta de las peticiones.
+
+1.- Respuestas informativas (100–199).
+2.- Respuestas satisfactorias (200–299).
+3.- Redirecciones (300–399).
+4.- Errores de los clientes (400–499).
+5.- Errores de los servidores (500–599).
+
+La siguiente hace parte de la documentación de Mozilla:
+
+STATUS RESPONSE
+
+MANEJO DE STATUS CODES
+
+Una opción rápida para manejarlas es usar la librería Request
+
+Shell*
+
+1. Abre un ambiente virtual.
+2. En la carpeta de trabajo: pip install request
+
+Luego en pyhton
+
+## Una idea sobre el manejo de los status Code.
+
+import requests
+
+response_platzi = requests.get('https://api.platzi.com')
+print(response_platzi)
+# <Response [404]>
+
+if response_platzi.status_code == 200:
+    print("Aquí tienes lo que buscas")
+elif response_platzi.status_code == 400:
+    print("Ups, no puedo darte nada en el momento. Nosotros nunca paramos de mejorar <3")
+    
+
+Un artículo para profundizar en cómo manejar la librería request y como manejar los status code:
+Request Tutorial
+
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+
+RESUMEN: HTML
+
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+
+HTML es una lenguaje que permite definir la estructura de una página web.
+Estrucutra, estilo, partes interactivas. En el contexto de webscraping HTML es muy importante
+
+Etiquetas está encerrado en angle brakets.<>
+Una etiqueta peude contener a otras etiquetas, las etiquetas tienen atributos.
+
+El conocimiento de los atributos será crucial porque con ellos podremos conectar el scraper para extraer información.
+
+script Se utiliza para
+insertar o hacer referencia a un script ejecutable dentro de un docuemnto HTML.
+
+meta aporta información extra al documento, metadatos como autor, título, fehca, palabras clave
+es de suma importancia para el navegador.
+
+iframe Puedo anidar un elemento HTML
+sobre otro elemento.
+
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+
+RESUMEN: Robots.txt
+
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+
+Los archivos robots.txt exiten como una forma de administrar una página web.
+proporciona información a los rastreadores de los buscadores sobre las páginas o los archivos que pueden solicitar o no de tu sitio web.
+Principalmente, se utiliza para evitar que tu sitio web se sobrecargue con solicitudes.
+En el contexto de webscraping, le dice al scraper que puede y no extraer. Es decir hasta donde puede llegar. Ya que infrigir en la violación
+de estas directivas puede acarrear un problema legal con el sitio web al que estamos scrapeando.
+
+Robots.txt
+Contiene entre otros elementos:
+
+USER-AGENT: Identificadores de quienes acceden a tu sitio web, puede ser un archivo.py hasta un googlebot.
+
+DIRECTIVAS
+
+ALLOW: Utiliza esta directiva para permitir a los motores de búsqueda rastrear un subdirectorio o una página, incluso en un directorio que de otro modo no estaría permitido
+DISALLOW: Utiliza esta directiva para indicar a los motores de búsqueda que no accedan a archivos y páginas que se encuentren bajo una ruta específica
+
+Ejemplo:
+
+url/robots.txt
+Pro ejemplo:
+
+# Robots.txt file from http://www.nasa.gov
+#
+# All robots will spider the domain
+
+User-agent: *
+Disallow: /worldbook/
+Disallow: /offices/oce/llis/
+
+Para conocer más información de robots.txt.
+
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+
+RESUMEN: XPATH
+
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+
+XML Xtensible markup lenguage .Sirvio para definir interfaces, es un lenguaje de nodos o etiquetas.
+Una técnica para extraer datos de allí es Xpath.
+
+Xpath es a HTML lo que las REGEX son a un texto.
+Es decir, Xpath es un lenguaje de patrones, expresiones que me permitirá extraer datos de un HTML. Puntualmente sirve para apuntar a partes de un documento XML.
+
+XML Path Language
+Formado por nodos(etiquetas)
+Parecido al HTML
+Expresiones regulares: Definir patrones.
+Expresión Xpath, es el html que voy a extraer.
+
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+
+RESUMEN: Tipos de nodos
+
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+
+Un nodo es lo mismo que la etiqueta y su contenido.
+Un nodo puede contener a otros nodos.
+En otras palabras Xpath nos permitirá navegar en los diferentes niveles de profundidad
+deseados con el fin extraer información. Para describir los nodos y relaciones con Xpath se usan una
+sintaxis de ejes.
+
+Toscrape es un sandbox para practicar.
+
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+
+RESUMEN: Expresiones en Xpath
+
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+
+/ : Significa la raiz o root de todo el documento, tambien significa un salto entre nodos. Puedo navegar entre niveles
+
+// : Puedo ir por varios niveles en el esquema que construimos.
+
+Ejemplo:
+
+# Fuente de trabajo Quotes to Scrape:
+
+url ="http://quotes.toscrape.com/"
+
+#Quiero extraer el texto de mi nodo h1.
+
+$x('//h1/a/text()').map(x => x.wholeText)
+# Devuelve en consola: ["Quotes to Scrape"]
+#La función map pertenece a Js y la estoy usando para que me muestre todo el texto de la 
+selección de Xpath.
+
+Existen otras expresiones
+
+/… : Acceder a todos los nodos padre de x nodo.
+/@atribute_name : Me permite extraer atributo
+#Estoy trayendo todos los atributos class de los nodos span.
+$x('//span/@class')
+Para ser específicos con los datos a extraer se usan predicados.
+
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
+
